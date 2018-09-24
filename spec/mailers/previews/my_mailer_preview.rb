@@ -14,8 +14,4 @@ class MyMailerPreview < ActionMailer::Preview
   def unlock_instructions
     MyMailer.unlock_instructions(User.first, "faketoken", {})
   end
-
-    def deliver_later
-     Devise::Mailer.delay(queue: 'my_queue').send(...)
-  end
 end
