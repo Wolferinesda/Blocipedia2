@@ -1,4 +1,6 @@
 class WikisController < ApplicationController
+  skip_before_action :authenticate_user!, except: [:create, :edit, :update, :destroy]
+
   def index
     @wikis = Wiki.all
     @user = User.find_by(id: session[:user_id])
@@ -22,7 +24,7 @@ class WikisController < ApplicationController
       flash[:notice] = "Wiki was saved."
       redirect_to @wiki
     else
-      flash.now[:alert] = "There was an error saving your wiki, please try again."
+      flash.now[:alert] = "There was an error saving your wiki. Please try again."
       render :new
     end
   end
