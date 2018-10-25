@@ -1,6 +1,5 @@
 class WikisController < ApplicationController
-  before_action :require_sign_in, except: [:index, :show]
-  before_action :authorize_user, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @wikis = Wiki.all
@@ -16,10 +15,7 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = Wiki.new
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
-    @wiki.user = current_user
+    @wiki = current_user.wikis.build(wiki_params)
 
     if @wiki.save
       flash[:notice] = "Wiki was saved."
@@ -35,9 +31,8 @@ class WikisController < ApplicationController
   end
 
   def update
-    @wiki = Wiki.find(params[:id])
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
+    @wiki = Wiki.friendly.find(params[:id])
+
     if @wiki.save
       flash[:notice] = "Wiki was updated."
       redirect_to @wiki
