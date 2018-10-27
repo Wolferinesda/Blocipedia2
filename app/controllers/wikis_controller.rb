@@ -26,10 +26,6 @@ class WikisController < ApplicationController
     end
   end
 
-  def wiki_params
-    params.require(:wiki).permit(:body)
-  end
-
   def edit
     @wiki = Wiki.find(params[:id])
   end
@@ -56,4 +52,11 @@ class WikisController < ApplicationController
       render :show
     end
   end
+
+  private
+
+  def wiki_params
+    params.require(:wiki).permit(:body, :title)
+  end
+
 end
