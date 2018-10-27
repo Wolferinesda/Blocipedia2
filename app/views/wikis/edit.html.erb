@@ -8,6 +8,8 @@
       <li>Any troll or useless wikis will be removed.</li>
     </ul>
   </div>
-  <%= render partial: 'form', locals: { wiki: @wiki } %>
+  <% if current_user %>
+    <%= render 'form', wiki: @wiki %>
+  <% end %>
   </div>
 </div>

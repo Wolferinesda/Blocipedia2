@@ -15,7 +15,7 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = current_user.wikis.build(wiki_params)
+    @wiki = current_user.wikis.new(wiki_params)
 
     if @wiki.save
       flash[:notice] = "Wiki was saved."
@@ -26,12 +26,16 @@ class WikisController < ApplicationController
     end
   end
 
+  def wiki_params
+    params.require(:wiki).permit(:body)
+  end
+
   def edit
     @wiki = Wiki.find(params[:id])
   end
 
   def update
-    @wiki = Wiki.friendly.find(params[:id])
+    @wiki = Wiki.find(params[:id])
 
     if @wiki.save
       flash[:notice] = "Wiki was updated."
