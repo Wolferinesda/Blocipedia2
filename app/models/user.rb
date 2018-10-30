@@ -6,4 +6,6 @@ class User < ApplicationRecord
          :registerable, :confirmable
 
   has_many :wikis, dependent: :destroy
+
+  enum role: [:standard, :premium, :admin]
 end
