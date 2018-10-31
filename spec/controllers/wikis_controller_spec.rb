@@ -28,14 +28,14 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns http success" do
+    it "returns http redirect" do
       get :new
       expect(response).to have_http_status(302)
     end
   end
 
   describe "GET #edit" do
-    it "returns http success" do
+    it "returns http redirect" do
       get :edit, params: {id: @my_wiki.id}
       expect(response).to have_http_status(302)
     end
