@@ -25,20 +25,17 @@ end
 )
 
 admin = User.create!(
-  name: 'Admin User',
   email: 'admin@example.com',
   password: 'helloworld',
   role: 'admin'
 )
 
 standard = User.create!(
-  name: 'Standard User',
   email: 'standard@example.com',
   password: 'helloworld'
 )
 
 premium = User.create!(
-  name: 'Premium User',
   email: 'premium@example.com',
   password: 'helloworld',
   role: 'premium'
