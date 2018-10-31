@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
     end
 
     it "responds to premium?" do
-      expect(user).to respond_to(:premuim?)
+      expect(user).to respond_to(:premium?)
     end
   end
 
