@@ -5,7 +5,7 @@ class User < ApplicationRecord
     self.role ||= :standard
   end
 
-  validates :password, presence: true, length: {minimum: 6}, if: -> {"password_digest.nil?"}
+  validates :password, presence: true, length: {minimum: 6}
   validates :password, length: {minimum:6}, allow_blank: true
   validates :email, presence: true, uniqueness: {case_sensitive: false}, length: {minimum:3, maximum:254}
 
@@ -16,6 +16,8 @@ class User < ApplicationRecord
          :registerable, :confirmable
 
   has_many :wikis, dependent: :destroy
+
+  before_save { self.role ||= :standard }
 
   enum role: [:standard, :premium, :admin]
 end

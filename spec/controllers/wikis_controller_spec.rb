@@ -12,6 +12,11 @@ RSpec.describe WikisController, type: :controller do
   end
 
   let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: @user) }
+  let(:standard_user) { create(:user) }
+  let(:premium_user) { create(:user, email: 'premium@example.com', role: :premium) }
+  let(:admin) { create(:user, email: 'admin@example.com', role: :admin) }
+  let(:public_wiki) { create(:wiki, user: standard_user) }
+  let(:private_wiki) { create(:wiki, private: true, user: premium_user) }
 
   describe "GET #index" do
     it "returns http success" do
