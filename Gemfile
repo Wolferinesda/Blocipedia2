@@ -67,3 +67,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'bootstrap-sass'
 gem "pundit"
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
