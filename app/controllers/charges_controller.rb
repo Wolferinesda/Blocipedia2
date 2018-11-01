@@ -16,8 +16,9 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
-    flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
-    redirect_to user_path(current_user) # or wherever
+    flash[:notice] = "Thanks for upgrading, #{current_user.email}!"
+    current_user.update_attribute(:role, 'premium')
+    redirect_to root_path
 
     # Stripe will send back CardErrors, with friendly messages
     # when something goes wrong.
@@ -35,11 +36,5 @@ class ChargesController < ApplicationController
       description: "BigMoney Membership - #{current_user.email}",
       amount: @amount
     }
-   end
-
-   def downgrade
-     subscription = Stripe::Subscription.retrieve("sub_49ty4767H20z6a")
-     subscription.plan = "standard"
-     subscription.save
    end
 end
