@@ -14,10 +14,12 @@
         <%= link_to "Home", root_path, class: 'btn btn-primary' %>
         <%= link_to "About", welcome_about_path, class: 'btn btn-primary' %>
         <%= link_to "Wikis", wikis_path, class: 'btn btn-primary' %>
-        <% if current_user.standard? %>
-          <%= link_to 'Upgrade to Premium', new_charge_path, :class => 'btn btn-primary' %>
-        <% elsif current_user.premium? %>
-          <%= link_to 'Downgrade Your Account', new_downgrade_path, :class => 'btn btn-primary' %>
+        <% if user_signed_in? %>
+          <% if current_user.standard? %>
+            <%= link_to 'Upgrade to Premium', new_charge_path, :class => 'btn btn-primary' %>
+          <% elsif current_user.premium? %>
+            <%= link_to 'Downgrade Your Account', new_downgrade_path, :class => 'btn btn-primary' %>
+          <% end %>
         <% end %>
     </div>
     <% if user_signed_in? %>
