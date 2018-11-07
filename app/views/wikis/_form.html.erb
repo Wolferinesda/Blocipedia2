@@ -25,6 +25,8 @@
         <%= f.check_box :private %> Private wiki
       <% end %>
     </div>
+  <% elsif current_user.standard? %>
+    <%= f.hidden_field :private, :value => "false" %>
   <% end %>
 
   <div class="form-group">
