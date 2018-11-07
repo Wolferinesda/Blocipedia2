@@ -14,7 +14,8 @@ users = User.all
   Wiki.create!(
     user:   users.sample,
     title:  Faker::Games::WorldOfWarcraft.hero,
-    body:   Faker::Number.number(25)
+    body:   Faker::Number.number(25),
+    private: false
   )
 end
   wikis = Wiki.all

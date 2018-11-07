@@ -2,7 +2,15 @@ class WikisController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @wikis = Wiki.all
+    if user_signed_in?
+      if current_user.standard?
+        @wikis = Wiki.where(private: false)
+      else
+        @wikis = Wiki.all
+      end
+    else
+      @wikis = Wiki.all
+    end
     @user = User.find_by(id: session[:user_id])
   end
 
@@ -57,7 +65,7 @@ class WikisController < ApplicationController
   private
 
   def wiki_params
-    params.require(:wiki).permit(:body, :title)
+    params.require(:wiki).permit(:body, :title, :private)
   end
 
 end
