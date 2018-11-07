@@ -7,12 +7,12 @@ class ChargesController < ApplicationController
       email: current_user.email,
       card: params[:stripeToken]
     )
-
+    
     # Where the real magic happens
     charge = Stripe::Charge.create(
       customer: customer.id, # Note -- this is NOT the user_id in your app
       amount: @amount,
-      description: "Blocipedia2 Membership - #{current_user.email}",
+      description: "Blocipedia Membership - #{current_user.email}",
       currency: 'usd'
     )
 

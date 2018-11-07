@@ -3,10 +3,10 @@ class DowngradeController < ApplicationController
   def new
   end
 
-   def create
-     current_user.update(role: 0)
-     re = Stripe::Refund.create( charge: "ch_1DRu1mG3gfh2SyqBU2Ibey5V" )
-     flash[:notice] = "Your account has been downgraded to a standard account. Your private wikis are now public. You will recieve a $15.00 refund."
-     redirect_to root_path
+  def create
+    current_user.update_attribute(:role, 'standard')
+    # re = Stripe::Refund.create( charge: "")
+    flash[:notice] = "Your account has been downgraded to a standard account. Your private wikis are now public."
+    redirect_to root_path
   end
 end
