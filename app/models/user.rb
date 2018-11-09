@@ -15,6 +15,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :registerable, :confirmable
 
+  has_many :collaborators
+  has_many :wiki_collabs, source: 'wiki', through: :collaborators
   has_many :wikis, dependent: :destroy
 
   before_save { self.role ||= :standard }

@@ -6,16 +6,18 @@ class WikisController < ApplicationController
       if current_user.standard?
         @wikis = Wiki.where(private: false)
       else
-        @wikis = Wiki.all
+        @wikis = policy_scope(Wiki)
       end
     else
-      @wikis = Wiki.all
+      @wikis = policy_scope(Wiki)
     end
     @user = User.find_by(id: session[:user_id])
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    @users = User.find_by(id: session[:user_id])
+    @collaborators = @wiki.collaborators
   end
 
   def new

@@ -13,5 +13,8 @@
         <%= render 'form', wiki: @wiki %>
       <% end %>
     </div>
+    <div class="form-group">
+      <%= render partial: 'collaborators/form', locals: { wiki: @wiki } %>
+    </div>
   </div>
 </div>
