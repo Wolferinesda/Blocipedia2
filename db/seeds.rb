@@ -12,18 +12,26 @@ users = User.all
  # Create Wikis
 50.times do
   Wiki.create!(
-    user:   users.sample,
-    title:  Faker::Games::WorldOfWarcraft.hero,
-    body:   Faker::Number.number(25),
+    user:    users.sample,
+    title:   Faker::Games::WorldOfWarcraft.hero,
+    body:    Faker::Number.number(25),
     private: false
   )
 end
-  wikis = Wiki.all
-  user = User.first
-  user.update_attributes!(
+wikis = Wiki.all
+user = User.first
+user.update_attributes!(
   email: 'olienad@yahoo.com',
   password: '123123'
 )
+
+50.times do
+  Collaborator.create!(
+    wiki_id: Wiki.all.sample.id,
+    user_id: User.all.sample.id
+  )
+end
+collaborators = Collaborator.all
 
 admin = User.create!(
   email: 'admin@example.com',
@@ -45,3 +53,4 @@ premium = User.create!(
 puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{Wiki.count} wikis created"
+puts "#{Collaborator.count} collaborators created"

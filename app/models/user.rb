@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   after_initialize :init
+  before_update :publish_wikis
 
   def init
     self.role ||= :standard
@@ -18,6 +19,13 @@ class User < ApplicationRecord
   has_many :wikis, dependent: :destroy
 
   before_save { self.role ||= :standard }
+
+  private
+
+  def publish_wikis
+   return unless role_was == 'premium' && role == 'standard'
+   wikis.update_all(private: false)
+  end
 
   enum role: [:standard, :premium, :admin]
 end
