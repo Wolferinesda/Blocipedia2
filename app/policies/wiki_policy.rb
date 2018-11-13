@@ -36,42 +36,25 @@ class WikiPolicy < ApplicationPolicy
 
     def resolve
       wikis = []
-      if user.nil?
-        all_wikis = scope.all
-        wikis = []
-        all_wikis.each do |wiki|
-          if wiki.private == false
-            wikis << wiki
-          end
-        end
-      elsif user.admin?
+      if user.role == 'admin'
         wikis = scope.all
-      elsif user.premium?
+      elsif user.role == 'premium'
         all_wikis = scope.all
-        wikis = []
-        collaborators = []
         all_wikis.each do |wiki|
-          wiki.collaborators.each do |collaborator|
-            collaborators << collaborator.email
-          end
-          if wiki.private == false || wiki.user == user || collaborators.include?(user.email)
+          if wiki.public? || wiki.owner == user || wiki.collaborators.include?(user)
             wikis << wiki
           end
         end
       else
         all_wikis = scope.all
         wikis = []
-        collaborators = []
         all_wikis.each do |wiki|
-          wiki.collaborators.each do |collaborator|
-            collaborators << collaborator.email
-          end
-          if wiki.private == false || collaborators.include?(user.email)
+          if wiki.public? || wiki.collaborators.include?(user)
             wikis << wiki
           end
         end
       end
-      wikis
+      wikis 
     end
   end
 end
