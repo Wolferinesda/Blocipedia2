@@ -21,5 +21,12 @@ class User < ApplicationRecord
 
   before_save { self.role ||= :standard }
 
+  private
+
+  def publish_wikis
+    return unless role_was == 'premium' && role == 'standard'
+    wikis.update_all(private: false)
+  end
+
   enum role: [:standard, :premium, :admin]
 end
