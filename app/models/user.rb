@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   after_initialize :init
+  before_update :publish_wikis
 
   def init
     self.role ||= :standard

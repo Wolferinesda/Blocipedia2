@@ -6,9 +6,6 @@ class CollaboratorsController < ApplicationController
     if @user == nil
       flash[:error] = "That user could not be found."
       redirect_to edit_wiki_path(@wiki)
-    #elsif @user already exists
-      # flash[:error] = "That user is already a collaborator."
-      # redirect_to edit_wiki_path(@wiki)
     else
       collaborator = @wiki.collaborators.build(user_id: @user.id)
       if collaborator.save

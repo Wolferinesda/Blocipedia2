@@ -5,6 +5,8 @@ class Wiki < ApplicationRecord
 
   default_scope { order('created_at DESC') }
 
+  before_save { self.private ||= false }
+
   scope :visible_to, -> (user) do
     return all if user.premium? || user.admin?
     where(private: [false, nill])
