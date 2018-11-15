@@ -4,7 +4,7 @@ class CollaboratorsController < ApplicationController
     @wiki = Wiki.find(params[:wiki_id])
     @user = User.find_by_email(params[:collaborator][:user])
     if @user == nil
-      flash[:error] = "That user could not be found."
+      flash[:alert] = "That user could not be found."
       redirect_to edit_wiki_path(@wiki)
     else
       collaborator = @wiki.collaborators.build(user_id: @user.id)
@@ -12,7 +12,7 @@ class CollaboratorsController < ApplicationController
         flash[:notice] = "#{@user.email} has been added to the wiki. You can continue to add as many collaborators as you would like."
         redirect_to edit_wiki_path(@wiki)
       else
-        flash[:error] = "That user could not be added. Please try again."
+        flash[:alert] = "That user could not be added. Please try again."
         redirect_to edit_wiki_path(@wiki)
       end
     end
